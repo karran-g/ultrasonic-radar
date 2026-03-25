@@ -105,6 +105,7 @@ python radar.py
 - The COM port is hardcoded in `radar.py` and must be manually changed per machine.
 - If no serial data is received, the visualization freezes — there is no timeout or reconnection logic.
 - Measurement accuracy is approximately ±0.2cm at 30cm distance.
+- IMPORTANT : If Arduino IDE is open at the same time you run the radar.py, you may get a serial error if the board is actively communicating with the Arduino IDE.
 
 ---
 
