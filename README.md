@@ -40,15 +40,15 @@ All mechanical mounts were custom designed in Autodesk Inventor and 3D printed o
 | HC-SR04 Pin | Arduino Pin |
 |---|---|
 | VCC | 5V |
-| TRIG | D8 |
-| ECHO | D9 |
+| TRIG | D6 |
+| ECHO | D3 |
 | GND | GND |
 
 | SG90 Pin | Connection |
 |---|---|
 | VCC (Red) | Breadboard Power Module 5V |
 | GND (Brown) | Common GND |
-| Signal (Orange) | Arduino D10 |
+| Signal (Orange) | Arduino D11 |
 
 > **Note:** The servo must be powered from the breadboard power module, not directly from the Arduino 5V pin. The Arduino cannot supply enough current for the servo under load.
 
