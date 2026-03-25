@@ -8,7 +8,7 @@ A real-time ultrasonic radar built with an Arduino Uno, HC-SR04 sensor, and SG90
 
 ## How It Works
 
-The SG90 servo rotates the HC-SR04 sensor from 15° to 165° in 1° steps with a 30ms delay per step. At each angle, the sensor emits a 40kHz ultrasonic pulse and measures the time for the echo to return. The Arduino converts this to distance using the speed of sound at 15 degrees Celsius and sends `angle,distance` pairs over serial at 9600 baud.
+The SG90 servo rotates the HC-SR04 sensor from 15° to 165° in 1° steps with a 30ms delay per step. At each angle, the sensor emits a 40kHz ultrasonic pulse and measures the time for the echo to return. The Arduino converts this to distance using the speed of sound at 15° Celsius and sends `angle,distance` pairs over serial at 9600 baud.
 
 The Python script reads this serial stream in real time and renders a polar grid in PyGame. The sweep line is green up to the detected object and red beyond it, with a fading trail showing recent sweep history.
 
@@ -24,8 +24,11 @@ The Python script reads this serial stream in real time and renders a polar grid
 | Breadboard Power Module (USB) | 1 |
 | Breadboard | 1 |
 | Jumper Wires | Several |
+| M3*18 bolts and nuts | 2 |
 
-All mechanical mounts were custom designed in Autodesk Inventor and 3D printed on a Bambu Lab A1 Mini.
+All mechanical mounts were custom designed in Autodesk Inventor and 3D printed on a Bambu Lab A1 Mini with PLA plastic. Initially, I tried designing the sensor case so that I could mount the sensor using 4x 1.5 mm diameter pegs that could fit the 4 holes on the HC-SR04's corners;
+However, this did not really work out, so I switched to a bolted design.
+> **Note:** The parts are not oriented properly in the STL files so make sure to orient them properly in your slicer before printing.
 
 ![Sensor Mount Assembly](docs/assembled.jpg)
 
@@ -51,6 +54,7 @@ All mechanical mounts were custom designed in Autodesk Inventor and 3D printed o
 | Signal (Orange) | Arduino D11 |
 
 > **Note:** The servo must be powered from the breadboard power module, not directly from the Arduino 5V pin. The Arduino cannot supply enough current for the servo under load.
+> For the servo power supply, I would suggest a 9V DC battery; however, keep in mind that if the battery is almost out of juice, you can spend hours debugging only to find out that it wasn't the code but the battery. :<
 
 ---
 
@@ -81,7 +85,7 @@ pip install pygame pyserial
 
 **1. Flash the firmware**
 
-Open `firmware/radar.ino` in Arduino IDE. All three `.ino` files (`radar.ino`, `sensor.ino`, `servo.ino`) must be in the same folder — Arduino IDE will compile them together automatically. Upload to the Arduino Uno.
+Open `firmware/radar.ino` in Arduino IDE. All three `.ino` files (`radar.ino`, `sensor.ino`, `servo.ino`) must be in the same folder; Arduino IDE will compile them together automatically. Upload to the Arduino Uno.
 
 **2. Configure the serial port**
 
@@ -103,9 +107,10 @@ python radar.py
 
 - Maximum detection range is 30cm. The HC-SR04 supports up to 400cm, but the sweep speed and serial throughput were tuned for short range.
 - The COM port is hardcoded in `radar.py` and must be manually changed per machine.
-- If no serial data is received, the visualization freezes — there is no timeout or reconnection logic.
-- Measurement accuracy is approximately ±0.2cm at 30cm distance.
-- IMPORTANT : If Arduino IDE is open at the same time you run the radar.py, you may get a serial error if the board is actively communicating with the Arduino IDE.
+- If no serial data is received, the visualization freezes; there is no timeout or reconnection logic.
+- Measurement accuracy is approximately ±0.2cm at a 30cm distance.
+- IMPORTANT: If the Arduino IDE is open at the same time you run the radar.py, you may get a serial error if the board is actively communicating with the Arduino IDE.
+
 
 ---
 
