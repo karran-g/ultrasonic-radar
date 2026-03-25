@@ -6,7 +6,7 @@ A real-time ultrasonic radar built with an Arduino Uno, HC-SR04 sensor, and SG90
 
 
 
-!\[Assembled Hardware](docs/assembled.jpg)
+!\[Assembled Hardware](docs/radar\_case.jpg)
 
 
 
@@ -81,6 +81,10 @@ All mechanical mounts were custom designed in Autodesk Inventor and 3D printed.
 
 
 !\[Schematic](docs/circuit\_diagram.png)
+
+
+
+![Assembled Hardware](docs/assembled.jpg)
 
 
 
@@ -212,6 +216,14 @@ python radar.py
 
 \---
 
+
+## Future Improvements
+
+- Configurable COM port and baud rate via command line arguments instead of hardcoded values
+- Serial timeout and reconnection logic to prevent visualization freezing on data loss
+- Increase detection range beyond 30cm by tuning sweep speed and serial throughput
+- Export scan data to CSV for offline analysis
+- 3D printed enclosure to house the Arduino and breadboard as a single unit
 
 
 \## License
